@@ -1,2 +1,1 @@
-pywa
 git+https://github.com/david-lev/pywa.git#egg=pywa[fastapi,flask,cryptography]
