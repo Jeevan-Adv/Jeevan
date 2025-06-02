@@ -1,0 +1,15 @@
+# Ignore pywa package if installed locally
+pywa/
+# Ignore wenv directory or files
+venv/
+# Standard Python ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.venv
+env/
+venv/
+# VS Code settings
+.vscode/
