@@ -7,7 +7,7 @@ app = FastAPI()
 
 wa = WhatsApp(
     phone_id='715412771651848',
-    token='EAAQL8ZB2cPX0BO7w14HeDlcKfIpdOy4GaZCrkjkdZCf21xnADcW7eh1ZAAcfvFRCRWqCYmgvX8gsZAKDIaVR7gQZCZAGapU9hqeZCmohgZCy690btTJoZCK4mhZAkMwQZCWqrV8k58fclq5xvn1KYihRp7WmggEKGX8ubAJUiZAThe7PE0XTyHb2lyy9ZCRYwHKnMLmBVHgTiRVf8l0wdlU1sfTrhUWaXTrBw5jQ7MqU0ZD',
+    token='EAAQL8ZB2cPX0BO26Gj2ZB6xIfnTV7ZCCyCZBDMrMH0KJSGtseEyatlSqWXgH9t5T7zVELbrEAnKnDhi0HOmUhER2jfOJ7K2EyVyEUGwZAXMyi2kZCspueTVpLff2QKPPjnAXLma7zsXPMcSUxTiiG152gvDBUXGiDPpnkaHUe1aTMfDYImvO7jroZAUlKz9ZB3NzlwRKBcMSnWeeHoEIsn8oE59Ml9wk0PZBsgNra'
     verify_token='12345', 
     server=app, # Pass FastAPI app here
     validate_updates=False,
