@@ -38,18 +38,15 @@ def start(client: WhatsApp, msg: types.Message):
     )
     user_data[msg.sender]['profession'] = profession.text
 
-    wa.send_message(
-        to=msg.sender,
-        header='Select your Gender',
-        text='Tap a button to select your Gender:',
+    r = msg.reply(
+        text="Select your Gender",
         buttons=[
-            Button(title='Male', callback_data='Male'),
-            Button(title='Female', callback_data='Female'),
-            Button(title='Other', callback_data='Other'),
-        ]
+            Button(title="Male", callback_data="male"),
+            Button(title="Female", callback_data="female"),
+            Button(title="Other", callback_data="other"),
+        ],
     )
-
-    gender = wa.wait_for_click()
+    gender = r.wait_for_click()
     user_data[msg.sender]['gender'] = gender.title
     data = user_data[msg.sender]
     msg.reply(
