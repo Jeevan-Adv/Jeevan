@@ -11,20 +11,10 @@ wa = WhatsApp(
     server=app, # Pass FastAPI app here
 )
 
-@app.post("/webhook")
-async def webhook(request: Request):
-    data = await request.json()
-    wa.handle_request(data)
-    return {"status": "ok"}
-
-@wa.on_message(filters.command("start"))
-def start(client: WhatsApp, msg: types.Message):
-    msg.reply("Hello! How old are you?")
-    age: types.Message = client.listen(
-        to=msg.sender,
-        filters=filters.message & filters.text
-    )
-    msg.reply(f"Your age is {age.text}.")
+@wa.on_message
+def hello(_: WhatsApp, msg: types.Message):
+    msg.react('👋')
+    msg.reply(f'Hello {msg.from_user.name}!')
 
 @app.get("/")
 def read_root():
