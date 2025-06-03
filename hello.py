@@ -24,7 +24,7 @@ def start(client: WhatsApp, msg: types.Message):
     user_data[msg.sender] = {'name': name.text}
 
     msg.reply("Enter your Age?") # Reply to the user with a greeting
-    name: types.Message = client.listen( # Now we want to wait for the user to send their name
+    age: types.Message = client.listen( # Now we want to wait for the user to send their name
         to=msg.sender,
         filters=filters.message & filters.text # We only want to listen for `Message` updates that contain text
     )
@@ -49,6 +49,7 @@ def start(client: WhatsApp, msg: types.Message):
         ]
     )
     user_data[msg.sender] = {'gender': callback_data}
+    msg.reply(user_data[msg.sender])
 
 @app.get("/")
 def read_root():
