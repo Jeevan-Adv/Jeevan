@@ -14,42 +14,47 @@ wa = WhatsApp(
 )
 
 user_data = {}
+
 @wa.on_message
 def start(client: WhatsApp, msg: types.Message):
-    msg.reply("Hello! What is your name?") # Reply to the user with a greeting
-    name: types.Message = client.listen( # Now we want to wait for the user to send their name
+    msg.reply("Hello! What is your name?")
+    name: types.Message = client.listen(
         to=msg.sender,
-        filters=filters.message & filters.text # We only want to listen for `Message` updates that contain text
+        filters=filters.message & filters.text
     )
     user_data[msg.sender] = {'name': name.text}
 
-    msg.reply("Enter your Age?") # Reply to the user with a greeting
-    age: types.Message = client.listen( # Now we want to wait for the user to send their name
+    msg.reply("Enter your Age?")
+    age: types.Message = client.listen(
         to=msg.sender,
-        filters=filters.message & filters.text # We only want to listen for `Message` updates that contain text
+        filters=filters.message & filters.text
     )
-    user_data[msg.sender] = {'age': age.text}
+    user_data[msg.sender]['age'] = age.text
 
-    msg.reply("Enter your Profession?") # Reply to the user with a greeting
-    profession: types.Message = client.listen( # Now we want to wait for the user to send their name
+    msg.reply("Enter your Profession?")
+    profession: types.Message = client.listen(
         to=msg.sender,
-        filters=filters.message & filters.text # We only want to listen for `Message` updates that contain text
+        filters=filters.message & filters.text
     )
-    user_data[msg.sender] = {'profession': profession.text}
+    user_data[msg.sender]['profession'] = profession.text
 
-    callback_data=''
     wa.send_message(
         to=msg.sender,
         header='Select your Gender',
         text='Tap a button to select your Gender:',
         buttons=[
-        Button(title='Male', callback_data='Male'),
-        Button(title='Female', callback_data='Female'),
-        Button(title='Other', callback_data='Other'),
+            Button(title='Male', callback_data='Male'),
+            Button(title='Female', callback_data='Female'),
+            Button(title='Other', callback_data='Other'),
         ]
     )
-    user_data[msg.sender] = {'gender': callback_data}
-    msg.reply(user_data[msg.sender])
+
+    gender = wa.wait_for_click()
+    user_data[msg.sender]['gender'] = gender.title
+    data = user_data[msg.sender]
+    msg.reply(
+        f"Name: {data.get('name')}\nAge: {data.get('age')}\nProfession: {data.get('profession')}\nGender: {data.get('gender')}"
+    )
 
 @app.get("/")
 def read_root():
