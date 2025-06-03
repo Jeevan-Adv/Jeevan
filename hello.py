@@ -12,9 +12,11 @@ wa = WhatsApp(
 )
 
 @wa.on_message
-def hello(_: WhatsApp, msg: types.Message):
-    msg.react('👋')
-    msg.reply(f'Hello {msg.from_user.name}!')
+def echo(_: WhatsApp, msg: types.Message):
+    try:
+        msg.copy(to=msg.sender, reply_to_message_id=msg.message_id_to_reply)
+    except ValueError:
+        msg.reply_text("I can't echo this message")
 
 @app.get("/")
 def read_root():
